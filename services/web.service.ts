@@ -100,26 +100,26 @@ export class WebService {
 
     if (ResponseContentType.Blob === requestOptions.responseType) {
       return this.http.get(origin + resource, requestOptions)
-        .map(WebserviceService.blobResponseHandler)
-        .catch(WebserviceService.errorResponseHandler);
+        .map(WebService.blobResponseHandler)
+        .catch(WebService.errorResponseHandler);
     }
     else if (ResponseContentType.Json === requestOptions.responseType) {
       return this.http.get(origin + resource, requestOptions)
-        .map(WebserviceService.jsonResponseHandler)
-        .catch(WebserviceService.errorResponseHandler);
+        .map(WebService.jsonResponseHandler)
+        .catch(WebService.errorResponseHandler);
     }
     else {
       requestOptions.headers = this.readHeaders;
 
       if (ResponseContentType.ArrayBuffer === requestOptions.responseType) {
         return this.http.get(origin + resource, requestOptions)
-          .map(WebserviceService.arrayBufferResponseHandler)
-          .catch(WebserviceService.errorResponseHandler);
+          .map(WebService.arrayBufferResponseHandler)
+          .catch(WebService.errorResponseHandler);
       }
       else if (ResponseContentType.Text === requestOptions.responseType) {
         return this.http.get(origin + resource, requestOptions)
-          .map(WebserviceService.httpResponseHandler)
-          .catch(WebserviceService.errorResponseHandler);
+          .map(WebService.httpResponseHandler)
+          .catch(WebService.errorResponseHandler);
       }
       else {
         console.error('ERROR: requestOptionsArgs.responseType: \'' + requestOptions.responseType + '\'');
@@ -138,39 +138,39 @@ export class WebService {
     this.requestOptions.responseType = ResponseContentType.Blob;
 
     return this.http.get(origin + resource, this.requestOptions)
-      .map(WebserviceService.blobResponseHandler)
-      .catch(WebserviceService.errorResponseHandler);
+      .map(WebService.blobResponseHandler)
+      .catch(WebService.errorResponseHandler);
   }
 
   public postRequest(origin: string, resource: string, body: {}, headers: Headers = this.WriteHeaders): Observable<Response | any> {
     this.requestOptions.headers = headers;
 
     return this.http.post(origin + resource, JSON.stringify(body), this.requestOptions)
-      .map(WebserviceService.jsonResponseHandler)
-      .catch(WebserviceService.errorResponseHandler);
+      .map(WebService.jsonResponseHandler)
+      .catch(WebService.errorResponseHandler);
   }
 
   public putRequest(origin: string, resource: string, body: {}, headers: Headers = this.WriteHeaders): Observable<Response | any> {
     this.requestOptions.headers = headers;
 
     return this.http.put(origin + resource, JSON.stringify(body), this.requestOptions)
-      .map(WebserviceService.jsonResponseHandler)
-      .catch(WebserviceService.errorResponseHandler);
+      .map(WebService.jsonResponseHandler)
+      .catch(WebService.errorResponseHandler);
   }
 
   public patchRequest(origin: string, resource: string, body: {}, headers: Headers = this.WriteHeaders): Observable<Response | any> {
     this.requestOptions.headers = headers;
 
     return this.http.patch(origin + resource, JSON.stringify(body), this.requestOptions)
-      .map(WebserviceService.jsonResponseHandler)
-      .catch(WebserviceService.errorResponseHandler);
+      .map(WebService.jsonResponseHandler)
+      .catch(WebService.errorResponseHandler);
   }
 
   public deleteRequest(origin: string, resource: string, headers: Headers = this.WriteHeaders): Observable<Response | any> {
     this.requestOptions.headers = headers;
 
     return this.http.delete(origin + resource, this.requestOptions)
-      .map(WebserviceService.jsonResponseHandler)
-      .catch(WebserviceService.errorResponseHandler);
+      .map(WebService.jsonResponseHandler)
+      .catch(WebService.errorResponseHandler);
   }
 }
