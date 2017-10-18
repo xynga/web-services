@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch'
 type Json = {} | any;
 
 @Injectable()
-export class WebserviceService {
+export class WebService {
   private ReadHeaders: Headers;
   private WriteHeaders: Headers;
 

@@ -3,7 +3,7 @@ import {Headers, RequestOptionsArgs, ResponseContentType} from '@angular/http';
 
 import {Observable} from 'rxjs/Observable';
 
-import {WebserviceService} from '../services/webservice.service';
+import {WebService} from './web.service';
 import {CanonicalUser, Credentials, UpdateCanonicalUserRequest} from "../models/canonical-user.model";
 
 @Injectable()
@@ -18,7 +18,7 @@ export class ApiService {
     responseType: ResponseContentType.Blob
   };
 
-  public constructor(private webserviceService: WebserviceService) {}
+  public constructor(private webService: WebService) {}
 
   /**
    * Gets the user authentication state by logging in
@@ -30,11 +30,11 @@ export class ApiService {
     const headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
 
-    return this.webserviceService.getRequest(origin, path, Object.assign({headers: headers}, this.securedJsonRequestOptions));
+    return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedJsonRequestOptions));
   }
 
   public putPassword( origin: string, path: string, userID: string, credentials: Credentials): Observable<{}> {
-    return this.webserviceService.patchRequest(origin, path + userID, {'password' :  credentials.password});
+    return this.webService.patchRequest(origin, path + userID, {'password' :  credentials.password});
   }
 
   /**
@@ -43,7 +43,7 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested report or an error
    */
   public putLogout(origin: string, path: string): Observable<{}> {
-    return this.webserviceService.deleteRequest(origin, path);
+    return this.webService.deleteRequest(origin, path);
   }
 
   /**
@@ -52,7 +52,7 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user or an error
    */
   public getUser(origin: string, path: string, user: CanonicalUser): Observable<{}> {
-    return this.webserviceService.getRequest(origin, path + user.id, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path + user.id, this.securedJsonRequestOptions);
   }
 
   /**
@@ -61,15 +61,15 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user list or an error
    */
   public getUsers(origin: string, path: string): Observable<{}> {
-    return this.webserviceService.getRequest(origin, path, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
   }
 
   public updateUser(origin: string, path: string, user: UpdateCanonicalUserRequest): Observable <any> {
-    return this.webserviceService.patchRequest(origin, path + user.id, user);
+    return this.webService.patchRequest(origin, path + user.id, user);
   }
 
   public addUser(origin: string, path: string, user: CanonicalUser): Observable<any> {
-    return this.webserviceService.postRequest(origin, path, user);
+    return this.webService.postRequest(origin, path, user);
   }
   /**
    * Get the list of users that the authenticate user is allowed to see
@@ -77,6 +77,6 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user list or an error
    */
   public getUsersBasics(origin: string, path: string): Observable<{}> {
-    return this.webserviceService.getRequest(origin, path, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
   }
 }
