@@ -17,6 +17,6 @@ import { HttpModule } from '@angular/http';
     ApiService
   ],
   declarations: [],
-  exports: []
+  exports: [WebserviceService, ApiService]
 })
-export class ServiceModule {}
+export class WebServicesModule {}

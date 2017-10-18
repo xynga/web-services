@@ -1,1 +1,1 @@
-export {ServiceModule} from './service.module';
+export {ServiceModule} from './web-services.module';
