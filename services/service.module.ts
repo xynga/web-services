@@ -23,6 +23,6 @@ import { RouterModule } from "@angular/router";
     IdleService
   ],
   declarations: [],
-  exports: [WebService, ApiService, IdleService]
+  exports: []
 })
 export class ServiceModule {}
