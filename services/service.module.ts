@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { WebService } from './webservice.service';
+import { WebService } from './web.service';
 import { ApiService } from "./api.service";
 import { IdleService } from "./idle.service";
 import { HttpModule } from '@angular/http';
@@ -23,6 +23,6 @@ import { RouterModule } from "@angular/router";
     IdleService
   ],
   declarations: [],
-  exports: []
+  exports: [WebService, ApiService, IdleService]
 })
 export class ServiceModule {}
