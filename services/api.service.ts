@@ -18,6 +18,11 @@ export class ApiService {
     responseType: ResponseContentType.Blob
   };
 
+    private blobRequestOptions: RequestOptionsArgs = {
+        withCredentials: false,
+        responseType: ResponseContentType.Blob
+    };
+
   public constructor(private webService: WebService) {}
 
   /**
@@ -80,14 +85,14 @@ export class ApiService {
     return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
   }
 
-  public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
-      const headers: Headers = new Headers();
-      headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+    public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
+        const headers: Headers = new Headers();
+        headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
 
-      return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedJsonRequestOptions));
-  }
+        return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedBlobRequestOptions));
+    }
 
-  public getFile(origin: string, path: string): Observable<{}> {
-      return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
-  }
+    public getFile(origin: string, path: string): Observable<{}> {
+        return this.webService.getRequest(origin, path, this.blobRequestOptions);
+    }
 }
