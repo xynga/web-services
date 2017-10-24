@@ -79,4 +79,15 @@ export class ApiService {
   public getUsersBasics(origin: string, path: string): Observable<{}> {
     return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
   }
+
+  public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
+      const headers: Headers = new Headers();
+      headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+
+      return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedJsonRequestOptions));
+  }
+
+  public getFile(origin: string, path: string): Observable<{}> {
+      return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
+  }
 }
