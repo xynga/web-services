@@ -97,7 +97,7 @@ export class ApiService {
       return this.webService.getRequest(origin, path, this.blobRequestOptions);
   }
 
-  public putFile(credentials: Credentials, origin: string, path: string, data: any): Observable<{}> {
+  public postFile(credentials: Credentials, origin: string, path: string, data: any): Observable<{}> {
     const headers: Headers = new Headers();
     headers.append("Content-Type", "application/octet-stream");
     headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
