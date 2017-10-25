@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {WebService} from './web.service';
 import {CanonicalUser, Credentials, UpdateCanonicalUserRequest} from "../models/canonical-user.model";
 
+
 @Injectable()
 export class ApiService {
   private securedJsonRequestOptions: RequestOptionsArgs = {
@@ -18,10 +19,10 @@ export class ApiService {
     responseType: ResponseContentType.Blob
   };
 
-    private blobRequestOptions: RequestOptionsArgs = {
-        withCredentials: false,
-        responseType: ResponseContentType.Blob
-    };
+  private blobRequestOptions: RequestOptionsArgs = {
+    withCredentials: false,
+    responseType: ResponseContentType.Blob
+  };
 
   public constructor(private webService: WebService) {}
 
@@ -85,14 +86,24 @@ export class ApiService {
     return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
   }
 
-    public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
-        const headers: Headers = new Headers();
-        headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+  public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
+      const headers: Headers = new Headers();
+      headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
 
-        return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedBlobRequestOptions));
-    }
+      return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedBlobRequestOptions));
+  }
 
-    public getFile(origin: string, path: string): Observable<{}> {
-        return this.webService.getRequest(origin, path, this.blobRequestOptions);
-    }
+  public getFile(origin: string, path: string): Observable<{}> {
+      return this.webService.getRequest(origin, path, this.blobRequestOptions);
+  }
+
+  public putFile(credentials: Credentials, origin: string, path: string, data: any): Observable<{}> {
+    const headers: Headers = new Headers();
+    headers.append("Content-Type", "application/octet-stream");
+    headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+
+    let blobData: Blob = new Blob([data]);
+
+    return this.webService.postUpload(origin, path, blobData , headers);
+  }
 }
