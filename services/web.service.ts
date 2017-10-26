@@ -151,6 +151,15 @@ export class WebService {
       .catch(WebService.errorResponseHandler);
   }
 
+  public postUpload(origin: string, resource: string, data: Blob, myHeaders: Headers): Observable<Response | any> {
+
+    this.requestOptions = {withCredentials: true};
+    this.requestOptions.headers = myHeaders;
+
+    return this.http.post(origin + resource, data, this.requestOptions);
+
+  }
+
   public putRequest(origin: string, resource: string, body: {}, headers: Headers = this.WriteHeaders): Observable<Response | any> {
     this.requestOptions.headers = headers;
 
