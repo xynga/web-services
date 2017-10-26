@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {WebService} from './web.service';
 import {CanonicalUser, Credentials, UpdateCanonicalUserRequest} from "../models/canonical-user.model";
 
+
 @Injectable()
 export class ApiService {
   private securedJsonRequestOptions: RequestOptionsArgs = {
@@ -15,6 +16,11 @@ export class ApiService {
 
   private securedBlobRequestOptions: RequestOptionsArgs = {
     withCredentials: true,
+    responseType: ResponseContentType.Blob
+  };
+
+  private blobRequestOptions: RequestOptionsArgs = {
+    withCredentials: false,
     responseType: ResponseContentType.Blob
   };
 
@@ -78,5 +84,26 @@ export class ApiService {
    */
   public getUsersBasics(origin: string, path: string): Observable<{}> {
     return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
+  }
+
+  public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
+      const headers: Headers = new Headers();
+      headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+
+      return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedBlobRequestOptions));
+  }
+
+  public getFile(origin: string, path: string): Observable<{}> {
+      return this.webService.getRequest(origin, path, this.blobRequestOptions);
+  }
+
+  public postFile(credentials: Credentials, origin: string, path: string, data: any): Observable<{}> {
+    const headers: Headers = new Headers();
+    headers.append("Content-Type", "application/octet-stream");
+    headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+
+    let blobData: Blob = new Blob([data]);
+
+    return this.webService.postUpload(origin, path, blobData , headers);
   }
 }
