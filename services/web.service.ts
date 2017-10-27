@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-type Json = {} | any;
+export type Json = {} | any;
 
 @Injectable()
 export class WebService {
