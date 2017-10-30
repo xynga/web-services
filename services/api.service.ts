@@ -57,8 +57,8 @@ export class ApiService {
    * @method getUser
    * @return {Observable} an observable that returns the requested user or an error
    */
-  public getUser(origin: string, path: string, user: CanonicalUser): Observable<{}> {
-    return this.webService.getRequest(origin, path + user.id, this.securedJsonRequestOptions);
+  public getUser(origin: string, path: string, userID: string): Observable<{}> {
+    return this.webService.getRequest(origin, path + userID, this.securedJsonRequestOptions);
   }
 
   /**
