@@ -14,6 +14,7 @@ Xynga-Web-Services is one of the 7 Xynga libraries. Each of the 7 libraries are 
 
 To install Xynga-Web-Services, run the command <code>npm install xynga-web-services</code> from the Angular project directory that you wish to install the library to. It will then be available in the project's <code>node_modules</code> directory. All of Xynga-Web-Services' third party dependencies will be automatically downloaded and placed in the project's <code>node_modules</code> directory as well. Then, simply import <code>ServiceModule</code> (from 'xynga-web-services') to the appropriate module in the project. <br/>
 
+Additionally, it is important that <code>"types" : ["node"]</code> and <code>"typeRoots" : ["../node_modules/@types"]</code> are added to the <code>"compilerOptions"</code> array in the project's tsconfig.app.json file, or else the project might not compile properly.
 # Additional Information
 
 Detailed descriptions on how to use each individual component and directive in Xynga-Web-Services, along with examples and APIs, can be found at [XYNGA WEBSITE]
