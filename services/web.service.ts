@@ -41,7 +41,7 @@ export class WebService {
       // todo: add test in case no headers are returned due to Angular not understanding
       // the returned Content-Type (e.g. text/cvs --- instead of text/csv)
 
-      let contentType = response.headers.get('content-type') || '';
+      let contentType = response.headers!.get('content-type') || ''; // the ! - Non-null assertion operator is needed to coerce away typescript compiler error
 
       contentType = contentType.substring(0, (contentType + ';').indexOf(';'));
 
@@ -128,6 +128,7 @@ export class WebService {
           'ResponseContentType.Json, ResponseContentType.ArrayBuffer, or ResponseContentType.Text');
       }
     }
+    return new Observable<null>();
   }
 
   public exportGetRequest(origin: string, resource: string, header_type: string): Observable<Response | any> {

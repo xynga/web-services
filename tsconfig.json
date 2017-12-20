@@ -9,7 +9,8 @@
     "module": "es2015",
     "moduleResolution": "node",
     "paths": {
-      "@angular/core": ["node_modules/@angular/core"]
+      "@angular/core": ["node_modules/@angular/core"],
+      "angular2-notifications": ["node_modules/angular2-notifications/dist"]
     },
     "rootDir": ".",
     "outDir": "web-services",
