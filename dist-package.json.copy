@@ -2,7 +2,7 @@
   "name": "xynga-web-services",
   "version": "1.0.19",
   "description": "",
-  "main": "web-services/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "ngc"
@@ -24,21 +24,5 @@
     "@ng-idle/core": "^2.0.0-beta.12",
     "angular2-notifications": "^0.7.8",
     "@angular/router": "^4.2.4"
-  },
-  "devDependencies": {
-    "@angular/animations": "^4.4.6",
-    "@angular/common": "^4.4.6",
-    "@angular/compiler": "^4.4.6",
-    "@angular/compiler-cli": "^4.4.6",
-    "@angular/core": "^4.2.4",
-    "@angular/http": "^4.2.4",
-    "@angular/platform-browser": "^4.2.4",
-    "@angular/platform-browser-dynamic": "^4.2.4",
-    "@angular/router": "^4.2.4",
-    "@ng-idle/core": "^2.0.0-beta.12",
-    "angular2-notifications": "^0.7.8",
-    "rxjs": "^5.4.2",
-    "typescript": "^2.4.2",
-    "zone.js": "^0.8.4"
   }
 }
