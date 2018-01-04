@@ -1,3 +1,11 @@
+<button (click)="testAll()">Test All Services</button>
+<p>Note: This will not test File Upload Service. File upload must be tested by selecting a file from your local machine.</p>
+<div>
+  Failed Tests: {{errorCount}}
+</div>
+<br><br>
+<hr>
+
 <button (click)="login()">Login</button>
 <div class="login-response" [ngStyle]="{'color': loginResponse.color, 'width': '400px'}">
   {{loginResponse.message}}
@@ -51,6 +59,13 @@
 <br>
 
 <button (click)="downloadFile()">Download File</button>
-<div class="download-file" [ngStyle]="{'color': downloadResponse.color, 'width': '400px'}">
+<div class="file-download-response" [ngStyle]="{'color': downloadResponse.color, 'width': '400px'}">
   {{downloadResponse.message}}
+</div>
+
+<br>
+
+<button (click)="idle()">Idle Service</button>
+<div class="idle-service-response" [ngStyle]="{'color': idleResponse.color, 'wdith': '400px'}">
+  {{idleResponse.message}}
 </div>

@@ -26,6 +26,7 @@ export class AppComponent {
   updateUserResponse: responseMessage={message:''};
   uploadResponse: responseMessage={message:''};
   downloadResponse: responseMessage={message:''};
+  idleResponse: responseMessage={message:''};
 
   myFile;
 
@@ -45,7 +46,18 @@ export class AppComponent {
 
   constructor(private apiService: ApiService, private idleService: IdleService){}
 
-  login(){
+  testAll() {
+    this.login();
+    this.logout();
+    this.getUser();
+    this.getUsers();
+    this.addUser();
+    this.updateUser();
+    this.downloadFile();
+    this.idle();
+  }
+
+  login() {
     this.username = 'user';
     this.password = 'password';
 
@@ -180,6 +192,14 @@ export class AppComponent {
   }
 
   idle() {
-
+    try {
+      this.idleService.init(0.1, 0, '');
+      this.idleService.onTimeout();
+      this.idleResponse = {message: 'Idle Service Successful', color: this.defaultTextColor};
+    }
+    catch(e) {
+      this.errorCount += 1;
+      this.idleResponse = {message: "Error: Idle Service cannot be called. Error message: " + e.message, color: this.errorTextColor};
+    }
   }
 }
