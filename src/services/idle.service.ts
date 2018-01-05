@@ -30,7 +30,7 @@ export class IdleService {
     this.idle.onIdleEnd.subscribe(() => this.onIdleEnd());
     this.idle.onTimeout.subscribe(() => this.onTimeout());
     this.idle.onIdleStart.subscribe(() => this.onIdleStart());
-    this.idle.onTimeoutWarning.subscribe((countdown) => this.onIdleWarning(countdown));
+    this.idle.onTimeoutWarning.subscribe((countdown: any) => this.onIdleWarning(countdown));
 
   }
 
@@ -63,7 +63,7 @@ export class IdleService {
   onIdleStart() {
     this.logoutWarning = this.notificationsService.warn(
       'Logout Warning',
-      null,
+      '',
       {timeOut: this.idleWarningTime * 1000}
     );
   }
@@ -77,7 +77,6 @@ export class IdleService {
   onIdleEnd() {
     if (this.logoutWarning) {
       this.notificationsService.remove(this.logoutWarning.id);
-      this.logoutWarning = null;
     }
   }
 
@@ -90,7 +89,6 @@ export class IdleService {
   clearLogoutConfirmation() {
     if (this.logoutConfirmation) {
       this.notificationsService.remove(this.logoutConfirmation.id);
-      this.logoutConfirmation = null;
     }
   }
 }

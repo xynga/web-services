@@ -2,20 +2,35 @@
   "name": "xynga-web-services",
   "version": "1.0.19",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd src && npm run compile",
+    "link-build": "npm link && cd testing && npm link xynga-web-services",
+    "postversion": "git push",
+    "rebuild": "npm run build && npm start",
+    "setup": "cd src && npm i && cd .. && npm run build && cd testing && npm i && cd .. && npm run link-build",
+    "start": "cd testing && start chrome http://localhost:4200 && ng serve",
+    "test": "npm run start"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "@angular/core": "^4.2.4",
-    "@angular/http": "^4.2.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xynga/web-services.git"
+  },
+  "peerDependencies": {
+    "@angular/animations": ">=4.4.6",
+    "@angular/core": ">=4.2.4",
+    "@angular/common": ">=4.4.6",
+    "@angular/http": ">=4.2.4",
     "rxjs": "^5.4.2",
-    "@angular/platform-browser": "^4.2.4",
-    "@angular/platform-browser-dynamic": "^4.2.4",
+    "@angular/platform-browser": ">=4.2.4",
+    "@angular/platform-browser-dynamic": ">=4.2.4",
     "@ng-idle/core": "^2.0.0-beta.12",
     "angular2-notifications": "^0.7.8",
-    "@angular/router": "^4.2.4"
+    "@angular/router": ">=4.2.4"
   }
 }
