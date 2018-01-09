@@ -1,6 +1,6 @@
 {
   "name": "xynga-web-services",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Holds all of the components classified under the label \"Navigation\"",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
