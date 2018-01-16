@@ -10,6 +10,7 @@
   "scripts": {
     "build": "cd src && npm run compile",
     "link-build": "npm link && cd testing && npm link xynga-web-services",
+    "preversion": "npm run build",
     "postversion": "git push",
     "rebuild": "npm run build && npm start",
     "setup": "cd src && npm i && cd .. && npm run build && cd testing && npm i && cd .. && npm run link-build",
@@ -23,15 +24,16 @@
     "url": "https://github.com/xynga/web-services.git"
   },
   "peerDependencies": {
-    "@angular/animations": ">=5.0.0",
-    "@angular/core": ">=5.0.0",
-    "@angular/common": ">=5.0.0",
-    "@angular/http": ">=5.0.0",
-    "rxjs": "^5.4.2",
-    "@angular/platform-browser": ">=5.0.0",
-    "@angular/platform-browser-dynamic": ">=5.0.0",
-    "@ng-idle/core": ">=2.0.0-beta.12",
-    "angular2-notifications": ">=0.7.8",
-    "@angular/router": ">=5.0.0"
+    "@angular/animations": ">=4.2.4",
+    "@angular/core": ">=4.2.4",
+    "@angular/common": ">=4.2.4",
+    "@angular/http": ">=4.2.4",
+    "rxjs": ">=5.4.2",
+    "@angular/platform-browser": ">=4.2.4",
+    "@angular/platform-browser-dynamic": ">=4.2.4",
+    "@angular/router": ">=4.2.4"
+  },
+  "dependencies": {
+    "@ng-idle/core": "2.0.0-beta.12"
   }
 }
