@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import {ApiService, CanonicalUser, IdleService} from 'xynga-web-services';
+import {ApiService, CanonicalUser, IdleService, OauthService} from 'xynga-web-services';
+import {ActivatedRoute, Params} from "@angular/router";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 interface responseMessage {
   message: string;
@@ -17,6 +19,10 @@ export class AppComponent {
   // working username and password for the mock API
   username: string = 'user';
   password: string = 'password';
+
+  // Variables for OAuth
+  google_access_token = null;
+  facebook_access_token = null;
 
   loginResponse: responseMessage={message:''};
   logoutResponse: responseMessage={message:''};
@@ -44,7 +50,11 @@ export class AppComponent {
     "phone": "8917430594"
   };
 
-  constructor(private apiService: ApiService, private idleService: IdleService){}
+  constructor(private apiService: ApiService,
+              private idleService: IdleService,
+              private OAuth: OauthService,
+              private activatedRoute: ActivatedRoute,
+              private http: HttpClient){}
 
   testAll() {
     this.login();
@@ -56,6 +66,48 @@ export class AppComponent {
     this.downloadFile();
     this.idle();
   }
+
+  OAuthLoginGoogle(){
+    let myUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+    let myClient_Id = '834843955901-hsgrk84ui4tvpehnj0cfi4uhgk5tr8q3.apps.googleusercontent.com';
+    let myRedirect_Uri = 'http://localhost:4200';
+    let myScope = 'https://www.googleapis.com/auth/userinfo.profile';
+    let myResponse_Type = 'token';
+
+    window.location.href = this.OAuth.getOAuthURL(myUrl, myClient_Id, myRedirect_Uri, myResponse_Type, myScope);
+  }
+
+  printAuthCodeGoogle(){
+    let myFragment = this.activatedRoute.snapshot.fragment;
+    this.google_access_token = this.OAuth.getAccessToken(myFragment); //This should be done in an IF on init
+                                                                      // So That when you return to the page, if there is an auth token in the fragment it gets set
+
+    this.http.get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + this.google_access_token)
+      .subscribe((data) => console.log(data), (err) => console.log(err));
+  }
+
+  OAuthLoginFacebook(){
+    let myUrl = 'https://www.facebook.com/v2.12/dialog/oauth';
+    let myClient_Id = '2023751670974793';
+    let myRedirect_Uri = 'http://localhost:4200';
+    let myScope = 'public_profile user_friends email';
+    let myResponse_type = 'token';
+
+    window.location.href = this.OAuth.getOAuthURL(myUrl, myClient_Id, myRedirect_Uri, myResponse_type, myScope);
+  }
+
+  printAuthCodeFacebook(){
+    //let token = this.activatedRoute.fragment['access_token'];
+    let myFragment = this.activatedRoute.snapshot.fragment;
+    this.facebook_access_token = this.OAuth.getAccessToken(myFragment); //This should be done in an IF on init
+                                                                        // So That when you return to the page, if there is an auth token in the fragment it gets set
+
+    this.http.get('https://graph.facebook.com/v2.12/me?fields=id%2Cname&access_token=' + this.facebook_access_token)
+      .subscribe((data) => console.log(data), (err) => console.log(err));
+  }
+
+
+
 
   login() {
     this.username = 'user';
