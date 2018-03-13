@@ -1,11 +1,14 @@
-import { ServiceModule, WebService, ApiService, IdleService } from 'xynga-web-services';
-import {TestBed, async, fakeAsync, tick, inject} from '@angular/core/testing';
+import {WebService, IdleService, ApiService} from 'xynga-web-services';
+import {TestBed, inject} from '@angular/core/testing';
 import {
-  Http, Response, RequestOptions, ResponseContentType, RequestOptionsArgs, XHRBackend,
-  HttpModule, ResponseOptions, RequestMethod, Headers
+  Http, Response, ResponseContentType, RequestOptionsArgs, XHRBackend,
+  HttpModule, ResponseOptions, RequestMethod, Headers, ConnectionBackend, RequestOptions
 } from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
-import {Observable} from "rxjs/Observable";
+import {Idle, NgIdleModule} from "@ng-idle/core";
+import {NotificationsService, SimpleNotificationsModule} from "angular2-notifications/dist";
+import {Router} from "@angular/router";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('Web Service', () => {
 
@@ -190,27 +193,27 @@ describe('Web Service', () => {
       service.deleteRequest('', '', headers);
     }));
 });
-
-describe ('Api Service', () => {
-  let service: ApiService;
-  let webService: WebService;
-
+describe('Idle Service', () => {
+  let idle: IdleService;
   beforeEach(() => {
+    let mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     TestBed.configureTestingModule({
-      imports: [HttpModule],
-      providers: [
-        ApiService,
-        WebService,
-        {provide: XHRBackend, useClass: MockBackend}
-      ]
+      imports: [NgIdleModule.forRoot(), SimpleNotificationsModule.forRoot(),
+        RouterTestingModule.withRoutes([]), HttpModule],
+      providers: [IdleService, Idle, ApiService, WebService, ConnectionBackend, {provide: Router, useValue: mockRouter}]
     });
-    service = new ApiService(webService);
-
-    it('securedJsonRequestOptions should be set', () => {
-      spyOn(service, 'getRequest');
-      service.getRequest("test", "test");
-      expect(service.getRequest).toHaveBeenCalled();
-    });
-
-
+  });
+/*  it("Idle instance should be defined",
+    inject([IdleService], (injectIdleService) => {
+    injectIdleService.init(5, 5, '');
+    expect(injectIdleService).toBeDefined();
+  }));*/
+  it("Idle instance should be defined",
+    inject([Idle, NotificationsService, ApiService],
+      (idle, notificationService, apiService) => {
+      idle = new IdleService(idle, notificationService, TestBed.get(Router), apiService);
+      idle.init(3,3,'');
+      expect(idle).toBeDefined();
+  }));
 });
+
