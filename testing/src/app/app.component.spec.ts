@@ -2,7 +2,7 @@ import {WebService, IdleService, ApiService} from 'xynga-web-services';
 import {TestBed, inject} from '@angular/core/testing';
 import {
   Http, Response, ResponseContentType, RequestOptionsArgs, XHRBackend,
-  HttpModule, ResponseOptions, RequestMethod, Headers, ConnectionBackend, RequestOptions
+  HttpModule, ResponseOptions, RequestMethod, Headers, ConnectionBackend
 } from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
 import {Idle, NgIdleModule} from "@ng-idle/core";
@@ -112,18 +112,17 @@ describe('Web Service', () => {
       });
       service.exportGetRequest('', '', '');
     }));
-/*  it('errorResponseHandler should return an observable',
+  it('blobResponseHandler should be called',
     () => {
-      spyOn(console, 'error');
+      spyOn(WebService, 'blobResponseHandler');
       let response: Response = new Response(new ResponseOptions ({
         status: 200
       }));
       let headers = new Headers();
       headers.append('content-type', 'test');
-      WebService.errorResponseHandler(response);
-      expect(console.error).toHaveBeenCalledWith(`${response.status} ${''} ${''}`)
-    });*/
-
+      WebService.blobResponseHandler(response);
+      expect(WebService.blobResponseHandler).toHaveBeenCalled();
+    });
   it('postRequest should pass a specific header to the http request',
     inject([WebService, XHRBackend], (service: WebService, mockBackEnd: MockBackend) => {
       mockBackEnd.connections.subscribe(connection => {
