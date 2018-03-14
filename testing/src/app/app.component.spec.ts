@@ -112,16 +112,44 @@ describe('Web Service', () => {
       });
       service.exportGetRequest('', '', '');
     }));
-  it('blobResponseHandler should be called',
+  it('jsonResponseHandler should be called with a response',
     () => {
-      spyOn(WebService, 'blobResponseHandler');
+      spyOn(WebService, 'jsonResponseHandler').and.callThrough();
       let response: Response = new Response(new ResponseOptions ({
         status: 200
       }));
+      WebService.jsonResponseHandler(response);
+      expect(WebService.jsonResponseHandler).toHaveBeenCalled();
+    });
+  it('arrayBufferResponseHandler should be called with a response',
+    () => {
+      spyOn(WebService, 'arrayBufferResponseHandler').and.callThrough();
+      let response: Response = new Response(new ResponseOptions ({
+        status: 200
+      }));
+      WebService.arrayBufferResponseHandler(response);
+      expect(WebService.arrayBufferResponseHandler).toHaveBeenCalled();
+    });
+  it('httpResponseHandler should be called with a response',
+    () => {
+      spyOn(WebService, 'httpResponseHandler').and.callThrough();
+      let response: Response = new Response(new ResponseOptions ({
+        status: 200
+      }));
+      WebService.httpResponseHandler(response);
+      expect(WebService.httpResponseHandler).toHaveBeenCalled();
+    });
+  it('errorResponseHandler should be called with a response',
+    () => {
+      spyOn(WebService, 'errorResponseHandler').and.callThrough();
       let headers = new Headers();
-      headers.append('content-type', 'test');
-      WebService.blobResponseHandler(response);
-      expect(WebService.blobResponseHandler).toHaveBeenCalled();
+      headers.append('content-type', 'null');
+      let response: Response = new Response(new ResponseOptions ({
+        status: 200,
+        headers: headers
+      }));
+      WebService.errorResponseHandler(response);
+      expect(WebService.errorResponseHandler).toHaveBeenCalled();
     });
   it('postRequest should pass a specific header to the http request',
     inject([WebService, XHRBackend], (service: WebService, mockBackEnd: MockBackend) => {
