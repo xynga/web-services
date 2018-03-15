@@ -7,8 +7,12 @@ describe('testing App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should login and display text', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    page.getButton('loginButton').click();
+    page.getText('login-response').then(data => {
+      console.log(data);
+      expect(data).toMatch("Login Successful"||"Error");  // matches response containing a successful login or unsuccessful login
+    })
   });
 });

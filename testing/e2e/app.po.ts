@@ -5,7 +5,12 @@ export class AppPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getButton(button: string) {
+    return element(by.className(button));
+  }
+
+  getText(selector: string) {
+    const serviceElement = element(by.className(selector));
+    return serviceElement.getText();
   }
 }
