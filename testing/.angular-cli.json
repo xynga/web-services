@@ -54,6 +54,7 @@
     },
     "codeCoverage": {
       "exclude": [
+        "../dist/models/**",
         "../dist/services/service.module.js",
         "../dist/services/api.service.js"
       ]
