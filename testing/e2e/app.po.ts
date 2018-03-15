@@ -13,4 +13,8 @@ export class AppPage {
     const serviceElement = element(by.className(selector));
     return serviceElement.getText();
   }
+
+  getFileInputEl() {
+    return element(by.css('input[type="file"]'));
+  }
 }
