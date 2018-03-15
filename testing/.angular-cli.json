@@ -51,6 +51,13 @@
   "test": {
     "karma": {
       "config": "./karma.conf.js"
+    },
+    "codeCoverage": {
+      "exclude": [
+        "../dist/models/**",
+        "../dist/services/service.module.js",
+        "../dist/services/api.service.js"
+      ]
     }
   },
   "defaults": {
