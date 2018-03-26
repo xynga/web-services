@@ -4,6 +4,7 @@ import { WebService } from './web.service';
 import { ApiService } from "./api.service";
 import { IdleService } from "./idle.service";
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from "@angular/common/http";
 import { NgIdleModule } from "@ng-idle/core";
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { RouterModule } from "@angular/router";
@@ -15,7 +16,8 @@ import { RouterModule } from "@angular/router";
     HttpModule,
     NgIdleModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [
     WebService,

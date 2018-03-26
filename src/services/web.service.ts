@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptionsArgs, Response, RequestMethod, ResponseContentType} from '@angular/http';
+import {HttpClient} from "@angular/common/http";
 
 import {Observable} from 'rxjs/Observable';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
@@ -66,7 +67,7 @@ export class WebService {
     return Observable.throw(response);
   }
 
-  public constructor(private http: Http) {
+  public constructor(private http: Http, private httpClient: HttpClient) {
     this.ReadHeaders = new Headers();
     this.ReadHeaders.append('Endpoint-Access', 'authorization/basic'); // fake header to force withCredentials:true basic authorization
 
@@ -92,7 +93,14 @@ export class WebService {
     return this.WriteHeaders;
   }
 
-  public getRequest(origin: string, resource: string, requestOptions?: RequestOptionsArgs): Observable<Response | any> {
+  public getRequest(origin: string, resource: string, options?: Object){
+    if(!options){
+      return this.httpClient.get(origin + resource);
+    }
+    return this.httpClient.get(origin + resource, options );
+  }
+
+  public oldGetRequest(origin: string, resource: string, requestOptions?: RequestOptionsArgs): Observable<Response | any> {
     if (!requestOptions) {
       requestOptions = this.requestOptions;
     }

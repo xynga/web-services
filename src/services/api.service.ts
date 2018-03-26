@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Headers, RequestOptionsArgs, ResponseContentType} from '@angular/http';
-
+import { HttpHeaders } from "@angular/common/http";
 import {Observable} from 'rxjs/Observable';
 
 import {WebService} from './web.service';
@@ -33,10 +33,15 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user or an error
    */
   public getLogin(credentials: Credentials, origin: string, path: string): Observable<{}> {
-    const headers: Headers = new Headers();
-    headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+    let httpHeaders = new HttpHeaders({
+        'Authorization':'Basic ' + window.btoa(credentials.username + ':' + credentials.password)
+    });
 
-    return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedJsonRequestOptions));
+    const httpOptions = {
+      headers: httpHeaders
+    };
+
+    return this.webService.getRequest(origin, path, httpOptions);
   }
 
   public putPassword( origin: string, path: string, userID: string, credentials: Credentials): Observable<{}> {
@@ -58,7 +63,7 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user or an error
    */
   public getUser(origin: string, path: string, userID: string): Observable<{}> {
-    return this.webService.getRequest(origin, path + userID, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path + userID);
   }
 
   /**
@@ -67,7 +72,7 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user list or an error
    */
   public getUsers(origin: string, path: string): Observable<{}> {
-    return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path);
   }
 
   public updateUser(origin: string, path: string, user: UpdateCanonicalUserRequest): Observable <any> {
@@ -94,7 +99,7 @@ export class ApiService {
   }
 
   public getFile(origin: string, path: string): Observable<{}> {
-      return this.webService.getRequest(origin, path, this.blobRequestOptions);
+      return this.webService.getRequest(origin, path);
   }
 
   public postFile(credentials: Credentials, origin: string, path: string, data: any): Observable<{}> {
