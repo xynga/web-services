@@ -46,7 +46,6 @@ export class IdleService {
   }
 
   onTimeout() {
-    console.log("Timed Out!");
     this.onLogout();
   }
 
@@ -81,7 +80,6 @@ export class IdleService {
   }
 
   resetIdle() {
-    console.log("started");
     this.clearLogoutConfirmation();
     this.idle.watch();
   }
