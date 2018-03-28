@@ -6,6 +6,7 @@ import {CanonicalUser} from "xynga-web-services";
 import { RouterTestingModule } from "@angular/router/testing";
 import {Component} from "@angular/core";
 import {Notification} from "angular2-notifications";
+import {HttpErrorResponse} from "@angular/common/http";
 
 
 @Component({
@@ -146,6 +147,116 @@ describe('WebService', () => {
     const req = httpMock.expectOne('test.com/');
     expect(req.request.method).toBe("DELETE");
     req.flush(dummyResponse);
+  });
+  it('Test Get Request with no httpOptions ERROR', () => {
+    const dummyUser = [
+      {username: 'user'}
+    ];
+    service.getRequest('test.com', '/canonical-users/id/user').subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/canonical-users/id/user');
+    expect(req.request.method).toBe("GET");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Get Request with httpOptions ERROR', () => {
+    const dummyUser = [
+      {username: 'user'}
+    ];
+    service.getRequest('test.com', '/canonical-users/id/user', {}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/canonical-users/id/user');
+    expect(req.request.method).toBe("GET");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Post Request with no httpOptions ERROR', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.postRequest('test.com', '/canonical-users/id/', {"dummy": "data"}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/canonical-users/id/');
+    expect(req.request.method).toBe("POST");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Post Request with httpOptions ERROR', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.postRequest('test.com', '/canonical-users/id/', {"dummy": "data"}, {}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/canonical-users/id/');
+    expect(req.request.method).toBe("POST");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Post Upload ERROR', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.postUpload('test.com', '/', {"dummy": "data"}, {}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/');
+    expect(req.request.method).toBe("POST");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Put Request ERROR', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.putRequest('test.com', '/', {"dummy": "data"}, {}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/');
+    expect(req.request.method).toBe("PUT");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Patch Request ERROR ', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.patchRequest('test.com', '/', {"dummy": "data"}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/');
+    expect(req.request.method).toBe("PATCH");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Patch Request with httpOptions ERROR', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.patchRequest('test.com', '/', {"dummy": "data"}, {}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/');
+    expect(req.request.method).toBe("PATCH");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Delete Request ERROR', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.deleteRequest('test.com', '/').subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/');
+    expect(req.request.method).toBe("DELETE");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
+  });
+  it('Test Delete Request with HttpOptions ERROR', () => {
+    const dummyResponse = [
+      {}
+    ];
+    service.deleteRequest('test.com', '/', {}).subscribe(data => {
+      fail('Should not reach here');
+    }, (err : HttpErrorResponse) => expect(err.toString()).toContain('400'));
+    const req = httpMock.expectOne('test.com/');
+    expect(req.request.method).toBe("DELETE");
+    req.error(new ErrorEvent("There Was an Error", {}), {status:400});
   });
 });
 describe('ApiService', () => {
