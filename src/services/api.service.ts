@@ -107,9 +107,10 @@ export class ApiService {
         'Content-Type':'application/octet-stream'
     });
     const httpOptions = {
-        headers: httpHeaders
+        headers: httpHeaders,
+        observe: 'response'
     };
 
-    return this.webService.postUpload(origin, path, httpOptions, data);
+    return this.webService.postUpload(origin, path, data, httpOptions);
   }
 }
