@@ -356,11 +356,11 @@ describe('ApiService', () => {
       password:'password'
     };
     api.postFile( cred, 'test.com', '/file', {});
-    expect(mySpy).toHaveBeenCalledWith('test.com','/file', jasmine.any(Object), {});
+    expect(mySpy).toHaveBeenCalledWith('test.com','/file', {}, jasmine.any(Object));
   });
 });
 
-describe('ApiService', () => {
+describe('IdleService', () => {
   let idle: IdleService;
 
   beforeEach( () =>{
