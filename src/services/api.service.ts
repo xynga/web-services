@@ -22,7 +22,8 @@ export class ApiService {
     });
 
     const httpOptions = {
-      headers: httpHeaders
+      headers: httpHeaders,
+        observe: 'response'
     };
 
     return this.webService.getRequest(origin, path, httpOptions);
@@ -30,7 +31,8 @@ export class ApiService {
 
   public putPassword( origin: string, path: string, userID: string, credentials: Credentials): Observable<{}> {
       const httpOptions = {
-          password: credentials.password
+          password: credentials.password,
+          observe: 'response'
       };
 
     return this.webService.patchRequest(origin, path + userID, {password: credentials.password}, httpOptions);
@@ -86,7 +88,8 @@ export class ApiService {
 
       const httpOptions = {
           headers: httpHeaders,
-          responseType: 'blob'
+          responseType: 'blob',
+          observe: 'response'
       };
 
       return this.webService.getRequest(origin, path, httpOptions);
@@ -95,7 +98,8 @@ export class ApiService {
   public getFile(origin: string, path: string): Observable<{}> {
 
       const httpOptions = {
-          responseType: 'blob'
+          responseType: 'blob',
+          observe: 'response'
       };
 
       return this.webService.getRequest(origin, path, httpOptions);

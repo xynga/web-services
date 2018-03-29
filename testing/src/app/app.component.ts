@@ -161,7 +161,6 @@ export class AppComponent {
     this.apiService.postFile({username: this.username, password: this.password}, this.origin,
       '/file/upload/' + filename, this.myFile[0]).subscribe(
       (res) => {
-        console.log(res);
         this.uploadResponse = {message: 'Upload File Successful',
         color: this.defaultTextColor};
       },

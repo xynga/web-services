@@ -43,7 +43,7 @@ describe('WebService', () => {
       {username: 'user'}
     ];
     service.getRequest('test.com', '/canonical-users/id/user').subscribe(data => {
-      expect(data).toEqual(dummyUser);
+      expect(data.body).toEqual(dummyUser);
     });
     const req = httpMock.expectOne('test.com/canonical-users/id/user');
     expect(req.request.method).toBe("GET");
@@ -53,8 +53,8 @@ describe('WebService', () => {
     const dummyUser = [
       {username: 'user'}
     ];
-    service.getRequest('test.com', '/canonical-users/id/user', {}).subscribe(data => {
-      expect(data).toEqual(dummyUser);
+    service.getRequest('test.com', '/canonical-users/id/user', {observe:'response'}).subscribe(data => {
+      expect(data.body).toEqual(dummyUser);
     });
     const req = httpMock.expectOne('test.com/canonical-users/id/user');
     expect(req.request.method).toBe("GET");
@@ -65,7 +65,7 @@ describe('WebService', () => {
       {}
     ];
     service.postRequest('test.com', '/canonical-users/id/', {"dummy": "data"}).subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/canonical-users/id/');
     expect(req.request.method).toBe("POST");
@@ -75,8 +75,8 @@ describe('WebService', () => {
     const dummyResponse = [
       {}
     ];
-    service.postRequest('test.com', '/canonical-users/id/', {"dummy": "data"}, {}).subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+    service.postRequest('test.com', '/canonical-users/id/', {"dummy": "data"}, {observe:'response'}).subscribe(data => {
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/canonical-users/id/');
     expect(req.request.method).toBe("POST");
@@ -86,8 +86,8 @@ describe('WebService', () => {
     const dummyResponse = [
       {}
     ];
-    service.postUpload('test.com', '/', {"dummy": "data"}, {}).subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+    service.postUpload('test.com', '/', {"dummy": "data"}, {observe:'response'}).subscribe(data => {
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/');
     expect(req.request.method).toBe("POST");
@@ -97,8 +97,8 @@ describe('WebService', () => {
     const dummyResponse = [
       {}
     ];
-    service.putRequest('test.com', '/', {"dummy": "data"}, {}).subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+    service.putRequest('test.com', '/', {"dummy": "data"}, {observe:'response'}).subscribe(data => {
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/');
     expect(req.request.method).toBe("PUT");
@@ -109,7 +109,7 @@ describe('WebService', () => {
       {}
     ];
     service.patchRequest('test.com', '/', {"dummy": "data"}).subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/');
     expect(req.request.method).toBe("PATCH");
@@ -119,8 +119,8 @@ describe('WebService', () => {
     const dummyResponse = [
       {}
     ];
-    service.patchRequest('test.com', '/', {"dummy": "data"}, {}).subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+    service.patchRequest('test.com', '/', {"dummy": "data"}, {observe:'response'}).subscribe(data => {
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/');
     expect(req.request.method).toBe("PATCH");
@@ -131,7 +131,7 @@ describe('WebService', () => {
       {}
     ];
     service.deleteRequest('test.com', '/').subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/');
     expect(req.request.method).toBe("DELETE");
@@ -141,8 +141,8 @@ describe('WebService', () => {
     const dummyResponse = [
       {}
     ];
-    service.deleteRequest('test.com', '/', {}).subscribe(data => {
-      expect(data).toEqual(dummyResponse);
+    service.deleteRequest('test.com', '/', {observe:'response'}).subscribe(data => {
+      expect(data.body).toEqual(dummyResponse);
     });
     const req = httpMock.expectOne('test.com/');
     expect(req.request.method).toBe("DELETE");

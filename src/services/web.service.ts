@@ -31,7 +31,7 @@ export class WebService {
               return WebService.handleError(err);
           }));
       } else {
-          return this.httpClient.get(origin + resource).pipe(catchError(err => {
+          return this.httpClient.get(origin + resource, {observe:'response'}).pipe(catchError(err => {
               return WebService.handleError(err);
           }));
       }
@@ -43,7 +43,7 @@ export class WebService {
               return WebService.handleError(err);
           }));
       }else {
-          return this.httpClient.post(origin + resource, data).pipe(catchError(err => {
+          return this.httpClient.post(origin + resource, data, {observe:'response'}).pipe(catchError(err => {
               return WebService.handleError(err);
           }));
       }
@@ -67,7 +67,7 @@ export class WebService {
               return WebService.handleError(err);
           }));
       }else {
-          return this.httpClient.patch(origin + resource, data).pipe(catchError(err => {
+          return this.httpClient.patch(origin + resource, data, {observe:'response'}).pipe(catchError(err => {
               return WebService.handleError(err);
           }));
       }
@@ -79,7 +79,7 @@ export class WebService {
             return WebService.handleError(err);
         }));
     }else{
-        return this.httpClient.delete(origin + resource).pipe(catchError(err => {
+        return this.httpClient.delete(origin + resource, {observe:'response'}).pipe(catchError(err => {
             return WebService.handleError(err);
         }));
     }
