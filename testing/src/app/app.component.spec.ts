@@ -1,3 +1,4 @@
+
 import { ServiceModule, WebService, ApiService, IdleService } from 'xynga-web-services';
 import {TestBed, getTestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
@@ -7,6 +8,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import {Component} from "@angular/core";
 import {Notification} from "angular2-notifications";
 import {HttpErrorResponse} from "@angular/common/http";
+
 
 
 @Component({
@@ -412,4 +414,62 @@ describe('IdleService', () => {
     idle.onIdleEnd();
     expect(idle.logoutWarning).not.toBeNull();
   });
+  it("Idle instance should be defined",
+    inject([Idle, NotificationsService, ApiService],
+      (idle, notificationService, apiService) => {
+      let idleService = new IdleService(idle, notificationService, TestBed.get(Router), apiService);
+      idleService.init(3,3,'');
+      expect(idleService).toBeDefined();
+  }));
+  it("onTimeout should call onLogout",
+    inject([Idle, NotificationsService, ApiService],
+      (idle, notificationService, apiService) => {
+        let idleService = new IdleService(idle, notificationService, TestBed.get(Router), apiService);
+        spyOn(idleService, 'onTimeout').and.callThrough();
+        idleService.init(3,3,'');
+        idleService.onTimeout();
+        expect(idleService.onTimeout).toHaveBeenCalled();
+      }));
+  it("onIdleStart should set logoutWarning to the correct time",
+    inject([Idle, NotificationsService, ApiService],
+      (idle, notificationService, apiService) => {
+        let idleService = new IdleService(idle, notificationService, TestBed.get(Router), apiService);
+        spyOn(NotificationsService.prototype, 'warn').and.callThrough();
+        let idleWarningTime = 3;
+        idleService.init(3, idleWarningTime,'');
+        idleService.onIdleStart();
+        expect(NotificationsService.prototype.warn).toHaveBeenCalledWith('Logout Warning', '', { timeOut: idleWarningTime * 1000 });
+      }));
+  it("onIdleWarning should pass countdown to set logoutWarning content",
+    inject([Idle, NotificationsService, ApiService],
+      (idle, notificationService, apiService) => {
+        let idleService = new IdleService(idle, notificationService, TestBed.get(Router), apiService);
+        let countdown = 3;
+        idleService.init(3, 3,'');
+        idleService.onIdleStart();
+        idleService.onIdleWarning(countdown);
+        expect(idleService.logoutWarning.content).toEqual("You will be logged out of this application in " + countdown + " seconds due to inactivity");
+      }));
+  it("onIdleEnd should remove logoutWarning",
+    inject([Idle, NotificationsService, ApiService],
+      (idle, notificationService, apiService) => {
+        let idleService = new IdleService(idle, notificationService, TestBed.get(Router), apiService);
+        spyOn(NotificationsService.prototype, 'remove').and.callThrough();
+        idleService.init(3, 3,'');
+        idleService.onIdleStart();
+        idleService.onIdleWarning(3);
+        idleService.onIdleEnd();
+        expect(NotificationsService.prototype.remove).toHaveBeenCalledWith(idleService.logoutWarning.id);
+      }));
+  it("clearLogoutConfirmation should remove logoutConfirmation",
+    inject([Idle, NotificationsService, ApiService],
+      (idle, notificationService, apiService) => {
+        let idleService = new IdleService(idle, notificationService, TestBed.get(Router), apiService);
+        spyOn(NotificationsService.prototype, 'remove').and.callThrough();
+        idleService.init(3, 3,'');
+        idleService.onTimeout();
+        idleService.clearLogoutConfirmation();
+        expect(NotificationsService.prototype.remove).toHaveBeenCalledWith(idleService.logoutConfirmation.id);
+      }));
 });
+

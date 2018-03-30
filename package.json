@@ -1,6 +1,6 @@
 {
   "name": "xynga-web-services",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Holds all of the components classified under the label \"Web Services\"",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
     "rebuild": "npm run build && npm start",
     "setup": "cd src && npm i && cd .. && npm run build && cd testing && npm i && cd .. && npm run link-build",
     "start": "cd testing && start chrome http://localhost:4200 && ng serve",
-    "test": "npm run start"
+    "test": "cd testing && ng test --watch=false --code-coverage"
   },
   "author": "",
   "license": "MIT",
@@ -24,9 +24,9 @@
     "url": "https://github.com/xynga/web-services.git"
   },
   "peerDependencies": {
-    "@angular/animations": ">=4.2.4",
-    "@angular/core": ">=4.2.4",
-    "@angular/common": ">=4.2.4",
+    "@angular/animations": ">=4.0.0",
+    "@angular/core": ">=4.0.0",
+    "@angular/common": ">=4.0.0",
     "@angular/http": ">=4.2.4",
     "rxjs": ">=5.4.2",
     "@angular/platform-browser": ">=4.2.4",
