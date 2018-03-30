@@ -88,8 +88,7 @@ export class ApiService {
 
       const httpOptions = {
           headers: httpHeaders,
-          responseType: 'blob',
-          observe: 'response'
+          responseType: 'blob'
       };
 
       return this.webService.getRequest(origin, path, httpOptions);
@@ -98,8 +97,7 @@ export class ApiService {
   public getFile(origin: string, path: string): Observable<{}> {
 
       const httpOptions = {
-          responseType: 'blob',
-          observe: 'response'
+          responseType: 'blob'
       };
 
       return this.webService.getRequest(origin, path, httpOptions);
