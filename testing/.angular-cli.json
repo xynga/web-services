@@ -52,11 +52,12 @@
     "karma": {
       "config": "./karma.conf.js"
     },
-    "codeCoverage": {
+    "codeCoverage":{
       "exclude": [
-        "../dist/models/**",
-        "../dist/services/service.module.js",
-        "../dist/services/api.service.js"
+        "../**/index.js",
+        "../**/canonical-user.model.js",
+        "**/polyfills.ts",
+        "**/test.ts"
       ]
     }
   },

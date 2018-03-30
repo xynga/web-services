@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, RequestOptionsArgs, ResponseContentType} from '@angular/http';
-
+import { HttpHeaders } from "@angular/common/http";
 import {Observable} from 'rxjs/Observable';
 
 import {WebService} from './web.service';
@@ -9,22 +8,7 @@ import {CanonicalUser, Credentials, UpdateCanonicalUserRequest} from "../models/
 
 @Injectable()
 export class ApiService {
-  private securedJsonRequestOptions: RequestOptionsArgs = {
-    withCredentials: true,
-    responseType: ResponseContentType.Json
-  };
-
-  private securedBlobRequestOptions: RequestOptionsArgs = {
-    withCredentials: true,
-    responseType: ResponseContentType.Blob
-  };
-
-  private blobRequestOptions: RequestOptionsArgs = {
-    withCredentials: false,
-    responseType: ResponseContentType.Blob
-  };
-
-  public constructor(private webService: WebService) {}
+  public constructor(public webService: WebService) {}
 
   /**
    * Gets the user authentication state by logging in
@@ -33,14 +17,25 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user or an error
    */
   public getLogin(credentials: Credentials, origin: string, path: string): Observable<{}> {
-    const headers: Headers = new Headers();
-    headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+    let httpHeaders = new HttpHeaders({
+        'Authorization':'Basic ' + window.btoa(credentials.username + ':' + credentials.password)
+    });
 
-    return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedJsonRequestOptions));
+    const httpOptions = {
+      headers: httpHeaders,
+        observe: 'response'
+    };
+
+    return this.webService.getRequest(origin, path, httpOptions);
   }
 
   public putPassword( origin: string, path: string, userID: string, credentials: Credentials): Observable<{}> {
-    return this.webService.patchRequest(origin, path + userID, {'password' :  credentials.password});
+      const httpOptions = {
+          password: credentials.password,
+          observe: 'response'
+      };
+
+    return this.webService.patchRequest(origin, path + userID, {password: credentials.password}, httpOptions);
   }
 
   /**
@@ -58,7 +53,7 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user or an error
    */
   public getUser(origin: string, path: string, userID: string): Observable<{}> {
-    return this.webService.getRequest(origin, path + userID, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path + userID);
   }
 
   /**
@@ -67,7 +62,7 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user list or an error
    */
   public getUsers(origin: string, path: string): Observable<{}> {
-    return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path);
   }
 
   public updateUser(origin: string, path: string, user: UpdateCanonicalUserRequest): Observable <any> {
@@ -83,27 +78,43 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user list or an error
    */
   public getUsersBasics(origin: string, path: string): Observable<{}> {
-    return this.webService.getRequest(origin, path, this.securedJsonRequestOptions);
+    return this.webService.getRequest(origin, path);
   }
 
   public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
-      const headers: Headers = new Headers();
-      headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+      let httpHeaders = new HttpHeaders({
+          'Authorization':'Basic ' + window.btoa(credentials.username + ':' + credentials.password)
+      });
 
-      return this.webService.getRequest(origin, path, Object.assign({headers: headers}, this.securedBlobRequestOptions));
+      const httpOptions = {
+          headers: httpHeaders,
+          responseType: 'blob',
+          observe: 'response'
+      };
+
+      return this.webService.getRequest(origin, path, httpOptions);
   }
 
   public getFile(origin: string, path: string): Observable<{}> {
-      return this.webService.getRequest(origin, path, this.blobRequestOptions);
+
+      const httpOptions = {
+          responseType: 'blob',
+          observe: 'response'
+      };
+
+      return this.webService.getRequest(origin, path, httpOptions);
   }
 
   public postFile(credentials: Credentials, origin: string, path: string, data: any): Observable<{}> {
-    const headers: Headers = new Headers();
-    headers.append("Content-Type", "application/octet-stream");
-    headers.append('Authorization', 'Basic ' + window.btoa(credentials.username + ':' + credentials.password));
+    let httpHeaders = new HttpHeaders({
+        'Authorization':'Basic ' + window.btoa(credentials.username + ':' + credentials.password),
+        'Content-Type':'application/octet-stream'
+    });
+    const httpOptions = {
+        headers: httpHeaders,
+        observe: 'response'
+    };
 
-    let blobData: Blob = new Blob([data]);
-
-    return this.webService.postUpload(origin, path, blobData , headers);
+    return this.webService.postUpload(origin, path, data, httpOptions);
   }
 }
