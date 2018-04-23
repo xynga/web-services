@@ -219,7 +219,7 @@ export class AppComponent {
       (err) => {
         this.errorCount += 1;
         this.uploadResponse = {message: 'Error: Upload File Unsuccessful. ' +
-        'Make sure the origin and path for the endpoint is correct, and that a file is being sent in the request.',
+        'Make sure the origin and path for the endpoint is correct, and that a file is being sent in the request. ' + err,
         color: this.errorTextColor};
       }
     )

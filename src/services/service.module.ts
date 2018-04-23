@@ -4,10 +4,11 @@ import { WebService } from './web.service';
 import { ApiService } from "./api.service";
 import { IdleService } from "./idle.service";
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from "@angular/common/http";
 import { NgIdleModule } from "@ng-idle/core";
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { RouterModule } from "@angular/router";
-import { HttpClientModule } from "@angular/common/http";
+import {NotificationsService} from "angular2-notifications";
 
 
 @NgModule({
@@ -22,7 +23,9 @@ import { HttpClientModule } from "@angular/common/http";
   providers: [
     WebService,
     ApiService,
-    IdleService
+    IdleService,
+    NotificationsService
+
   ],
   declarations: [],
   exports: []

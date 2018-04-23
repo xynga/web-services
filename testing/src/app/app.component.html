@@ -16,42 +16,42 @@
 <br><br>
 <hr>
 
-<button (click)="login()">Login</button>
+<button class="loginButton" (click)="login()">Login</button>
 <div class="login-response" [ngStyle]="{'color': loginResponse.color, 'width': '400px'}">
   {{loginResponse.message}}
 </div>
 
 <br>
 
-<button (click)="logout()">Logout</button>
+<button class="logoutButton" (click)="logout()">Logout</button>
 <div class="logout-response" [ngStyle]="{'color': logoutResponse.color, 'width': '400px'}">
   {{logoutResponse.message}}
 </div>
 
 <br>
 
-<button (click)="getUser()">Get User</button>
+<button class="getUserButton" (click)="getUser()">Get User</button>
 <div class="get-user-response" [ngStyle]="{'color': getUserResponse.color, 'width': '400px'}">
   {{getUserResponse.message}}
 </div>
 
 <br>
 
-<button (click)="getUsers()">Get Users</button>
+<button class="getUsersButton" (click)="getUsers()">Get Users</button>
 <div class="get-users-response" [ngStyle]="{'color': getUsersResponse.color, 'width': '400px'}">
   {{getUsersResponse.message}}
 </div>
 
 <br>
 
-<button (click)="addUser()">Add User</button>
+<button class="addUserButton" (click)="addUser()">Add User</button>
 <div class="add-user-response" [ngStyle]="{'color': addUserResponse.color, 'width': '400px'}">
   {{addUserResponse.message}}
 </div>
 
 <br>
 
-<button (click)="updateUser()">Update User</button>
+<button class="updateUserButton" (click)="updateUser()">Update User</button>
 <div class="update-user-response" [ngStyle]="{'color': updateUserResponse.color, 'width': '400px'}">
   {{updateUserResponse.message}}
 </div>
@@ -60,7 +60,7 @@
 
 <div class="file-uploader">
   <input type="file" (change)="change($event)">
-  <button type="button" (click)="uploadFile()" >Upload File</button>
+  <button class="uploadFileButton" type="button" (click)="uploadFile()" >Upload File</button>
 </div>
 <div class="file-upload-response" [ngStyle]="{'color': uploadResponse.color, 'width': '400px'}">
   {{uploadResponse.message}}
@@ -68,14 +68,14 @@
 
 <br>
 
-<button (click)="downloadFile()">Download File</button>
+<button class="downloadFileButton" (click)="downloadFile()">Download File</button>
 <div class="file-download-response" [ngStyle]="{'color': downloadResponse.color, 'width': '400px'}">
   {{downloadResponse.message}}
 </div>
 
 <br>
 
-<button (click)="idle()">Idle Service</button>
+<button class="idleButton" (click)="idle()">Idle Service</button>
 <div class="idle-service-response" [ngStyle]="{'color': idleResponse.color, 'wdith': '400px'}">
   {{idleResponse.message}}
 </div>
