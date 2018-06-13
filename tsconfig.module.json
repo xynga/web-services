@@ -13,7 +13,7 @@
       "angular2-notifications": ["node_modules/angular2-notifications/dist"]
     },
     "rootDir": ".",
-    "outDir": "../dist",
+    "outDir": "dist",
     "sourceMap": true,
     "inlineSources": true,
     "target": "es5",
@@ -23,6 +23,9 @@
       "dom"
     ]
   },
+  "include": [
+    "src/web-services/**/*"
+  ],
   "angularCompilerOptions": {
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true
