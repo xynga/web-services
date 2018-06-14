@@ -12,7 +12,9 @@
     "sandbox": "ng serve",
     "build": "ngc -p \"./tsconfig.module.json\"",
     "test": "ng test",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "preversion": "ng lint",
+    "postpublish": "git push"
   },
   "author": "",
   "license": "MIT",

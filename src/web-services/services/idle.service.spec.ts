@@ -11,9 +11,9 @@ class DummyComponent {
 }
 describe('IdleService', () => {
   let idle: IdleService;
-  beforeEach( () =>{
+  beforeEach( () => {
     TestBed.configureTestingModule({
-      imports: [ServiceModule, RouterTestingModule.withRoutes([{path:'',component: DummyComponent}])],
+      imports: [ServiceModule, RouterTestingModule.withRoutes([{path: '', component: DummyComponent}])],
       declarations: [DummyComponent]
     });
     idle = TestBed.get(IdleService);
@@ -21,26 +21,26 @@ describe('IdleService', () => {
   it('Should create the Idle Service', () => {
     expect(idle).toBeTruthy();
   });
-  it("should test the init function" , () => {
-    const mySpy = spyOn(idle, "resetIdle").and.stub();
-    idle.init(1,2,"test.com");
-    expect(idle.redirectURL).toEqual("test.com");
+  it('should test the init function' , () => {
+    const mySpy = spyOn(idle, 'resetIdle').and.stub();
+    idle.init(1, 2, 'test.com');
+    expect(idle.redirectURL).toEqual('test.com');
     expect(mySpy).toHaveBeenCalled();
   });
   it('Should call onLogout when onTimeout is called', () => {
-    const mySpy = spyOn(idle, "onLogout").and.stub();
+    const mySpy = spyOn(idle, 'onLogout').and.stub();
     idle.onTimeout();
     expect(mySpy).toHaveBeenCalled();
   });
   it('Should handle a logout when onLogout is called', () => {
     idle.logoutConfirmation = null;
-    idle.init(1,2,'');
+    idle.init(1, 2, '');
     idle.onLogout();
     expect(idle.logoutConfirmation).not.toBeNull();
   });
   it('Should warn about an Idle logout on Idle Start', () => {
     idle.logoutWarning = null;
-    idle.init(1,2,'');
+    idle.init(1, 2, '');
     idle.onIdleStart();
     expect(idle.logoutWarning).not.toBeNull();
   });

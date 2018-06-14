@@ -26,6 +26,9 @@
   "include": [
     "src/web-services/**/*"
   ],
+  "exclude": [
+    "src/web-services/**/*.spec.ts"
+  ],
   "angularCompilerOptions": {
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true
