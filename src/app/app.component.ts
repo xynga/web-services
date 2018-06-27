@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {ApiService, CanonicalUser, IdleService} from 'xynga-web-services';
+import {ApiService, CanonicalUser, IdleService} from '../web-services';
 
-interface responseMessage {
+interface ResponseMessage {
   message: string;
   color?: string;
 }
@@ -12,39 +12,39 @@ interface responseMessage {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  origin: string = 'https://ui-toolkit.xynga.cloud';
+  origin = 'https://97t84zz7m9.execute-api.us-east-2.amazonaws.com/usintomockapi';
 
   // working username and password for the mock API
-  username: string = 'user';
-  password: string = 'password';
+  username = 'user';
+  password = 'password';
 
-  loginResponse: responseMessage={message:''};
-  logoutResponse: responseMessage={message:''};
-  getUserResponse: responseMessage={message:''};
-  getUsersResponse: responseMessage={message:''};
-  addUserResponse: responseMessage={message:''};
-  updateUserResponse: responseMessage={message:''};
-  uploadResponse: responseMessage={message:''};
-  downloadResponse: responseMessage={message:''};
-  idleResponse: responseMessage={message:''};
+  loginResponse: ResponseMessage= {message: ''};
+  logoutResponse: ResponseMessage= {message: ''};
+  getUserResponse: ResponseMessage= {message: ''};
+  getUsersResponse: ResponseMessage= {message: ''};
+  addUserResponse: ResponseMessage= {message: ''};
+  updateUserResponse: ResponseMessage= {message: ''};
+  uploadResponse: ResponseMessage= {message: ''};
+  downloadResponse: ResponseMessage= {message: ''};
+  idleResponse: ResponseMessage= {message: ''};
 
   myFile;
 
   defaultTextColor = '#000000';
   errorTextColor = '#FF0000';
 
-  errorCount: number = 0;
+  errorCount = 0;
 
   newUser: CanonicalUser = {
-    "id": "user",
-    "first": "New",
-    "middle": "User",
-    "last": "Created",
-    "initials": "NUC",
-    "phone": "8917430594"
+    'id': 'user',
+    'first': 'New',
+    'middle': 'User',
+    'last': 'Created',
+    'initials': 'NUC',
+    'phone': '8917430594'
   };
 
-  constructor(private apiService: ApiService, private idleService: IdleService){}
+  constructor(private apiService: ApiService, private idleService: IdleService) {}
 
   testAll() {
     this.login();
@@ -61,7 +61,7 @@ export class AppComponent {
     this.username = 'user';
     this.password = 'password';
 
-    this.apiService.getLogin({username:this.username, password:this.password},
+    this.apiService.getLogin({username: this.username, password: this.password},
       this.origin, '/canonical-users/login').subscribe(
       (res) => {
         this.loginResponse = {message: 'Login Successful',
@@ -69,8 +69,8 @@ export class AppComponent {
       },
       (err) => {
         this.errorCount += 1;
-        this.loginResponse = {message: "Error: login was unsuccessful. " +
-          "Make sure the origin and path for the endpoint is correct, and that you are sending the user's credentials.",
+        this.loginResponse = {message: 'Error: login was unsuccessful. ' +
+          'Make sure the origin and path for the endpoint is correct, and that you are sending the user\'s credentials.',
         color: this.errorTextColor};
       }
     );
@@ -79,13 +79,13 @@ export class AppComponent {
   logout() {
     this.apiService.putLogout(this.origin, '/canonical-users/logout').subscribe(
       (res) => {
-        this.logoutResponse = {message:"Logout Successful",
+        this.logoutResponse = {message: 'Logout Successful',
           color: this.defaultTextColor};
       },
       (err) => {
         this.errorCount += 1;
-        this.logoutResponse = {message:"Error: logout unsuccessful. " +
-          "Make sure the origin and path for the endpoint is correct.",
+        this.logoutResponse = {message: 'Error: logout unsuccessful. ' +
+          'Make sure the origin and path for the endpoint is correct.',
           color: this.errorTextColor};
       }
     );
@@ -94,47 +94,47 @@ export class AppComponent {
   getUser() {
     this.apiService.getUser(this.origin, '/canonical-users/id/', 'user').subscribe(
       (res) => {
-        this.getUserResponse = {message:'Get User Successful',
+        this.getUserResponse = {message: 'Get User Successful',
           color: this.defaultTextColor};
       },
       (err) => {
         this.errorCount += 1;
-        this.getUserResponse = {message:"Error: Get User Unsuccessful. " +
-          "Make sure the origin and path for the endpoint is correct, and that you are passing an existing user's ID.",
+        this.getUserResponse = {message: 'Error: Get User Unsuccessful. ' +
+          'Make sure the origin and path for the endpoint is correct, and that you are passing an existing user\'s ID.',
           color: this.errorTextColor};
       }
-    )
+    );
   }
 
   getUsers() {
     this.apiService.getUsers(this.origin, '/canonical-users/').subscribe(
       (res) => {
-        this.getUsersResponse = {message:'Get Users Successful',
+        this.getUsersResponse = {message: 'Get Users Successful',
         color: this.defaultTextColor};
       },
       (err) => {
         this.errorCount += 1;
-        this.getUsersResponse = {message:'Error: Get Users Unsuccessful. ' +
+        this.getUsersResponse = {message: 'Error: Get Users Unsuccessful. ' +
         'Make sure the origin and path for the endpoint is correct.',
         color: this.errorTextColor};
       }
 
-    )
+    );
   }
 
   addUser() {
     this.apiService.addUser(this.origin, '/canonical-users/', this.newUser).subscribe(
       (res) => {
-        this.addUserResponse = {message:'Add User Successful',
+        this.addUserResponse = {message: 'Add User Successful',
         color: this.defaultTextColor};
       },
       (err) => {
         this.errorCount += 1;
-        this.addUserResponse = {message:'Error: Add User Unsuccessful. ' +
+        this.addUserResponse = {message: 'Error: Add User Unsuccessful. ' +
         'Make sure the origin and path for the endpoint is correct, and that a CanonicalUser object is being sent in the request.',
         color: this.errorTextColor};
       }
-    )
+    );
   }
 
   updateUser() {
@@ -149,7 +149,7 @@ export class AppComponent {
         'Make sure the origin and path for the endpoint is correct, and that a CanonicalUser object is being sent in the request.',
         color: this.errorTextColor};
       }
-    )
+    );
   }
 
   change(event: any) {
@@ -157,9 +157,9 @@ export class AppComponent {
   }
 
   uploadFile() {
-    var filename: string = this.myFile[0].name;
+    const filename: string = this.myFile[0].name;
     this.apiService.postFile({username: this.username, password: this.password}, this.origin,
-      '/file/upload/' + filename, this.myFile[0]).subscribe(
+      '/canonical-users/file/' + filename, this.myFile[0]).subscribe(
       (res) => {
         this.uploadResponse = {message: 'Upload File Successful',
         color: this.defaultTextColor};
@@ -170,12 +170,12 @@ export class AppComponent {
         'Make sure the origin and path for the endpoint is correct, and that a file is being sent in the request. ' + err,
         color: this.errorTextColor};
       }
-    )
+    );
   }
 
   downloadFile() {
     // retrieve a generic test file called fileTest.txt that exists on the mock API resource
-    this.apiService.getFile(this.origin, '/file/download/' + 'fileTest.txt').subscribe(
+    this.apiService.getFile(this.origin, '/canonical-users/file/' + 'fileTest.txt').subscribe(
       (res) => {
         this.downloadResponse = {message: 'Download File Successful',
           color: this.defaultTextColor};
@@ -188,7 +188,7 @@ export class AppComponent {
           color: this.errorTextColor
         };
       }
-    )
+    );
   }
 
   idle() {
@@ -196,10 +196,9 @@ export class AppComponent {
       this.idleService.init(0.1, 0, '');
       this.idleService.onTimeout();
       this.idleResponse = {message: 'Idle Service Successful', color: this.defaultTextColor};
-    }
-    catch(e) {
+    } catch (e) {
       this.errorCount += 1;
-      this.idleResponse = {message: "Error: Idle Service cannot be called. Error message: " + e.message, color: this.errorTextColor};
+      this.idleResponse = {message: 'Error: Idle Service cannot be called. Error message: ' + e.message, color: this.errorTextColor};
     }
   }
 }

@@ -32,8 +32,7 @@ export class CanonicalUserResponse {
       // clone an instance of the UserResponse class
 
       Object.assign(this, user);
-    }
-    else {
+    } else {
       // create an instance of the UserResponse class from an instance of the Object class
 
       const object: CanonicalUserResponse = <CanonicalUserResponse>user; // the response object has the UserResponse class structure
@@ -57,10 +56,9 @@ export class CanonicalUser {
 
   public constructor(user?: CanonicalUser | CanonicalUserResponse) {
     if (user) {
-      if (user instanceof CanonicalUser){
+      if (user instanceof CanonicalUser) {
         Object.assign(this, user);
-      }
-      else if (user instanceof CanonicalUserResponse) {
+      } else if (user instanceof CanonicalUserResponse) {
         this.id = user.id;
         this.first = user.first;
         this.middle = user.middle;
@@ -68,8 +66,7 @@ export class CanonicalUser {
         this.initials = user.initials;
         this.phone = user.phone;
       }
-    }
-    else {
+    } else {
       this.id = '';
       this.first = '';
       this.middle = '';

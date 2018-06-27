@@ -5,7 +5,7 @@ import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
 import {NotificationsService, Notification} from 'angular2-notifications';
 
 import 'rxjs/add/operator/toPromise';
-import {ApiService} from "./api.service";
+import {ApiService} from './api.service';
 
 @Injectable()
 export class IdleService {
@@ -16,8 +16,8 @@ export class IdleService {
   public logoutPath: string; // path for logging out user
   public redirectURL: string; // path for redirecting browser after timeout
 
-  private idleTime: number = 20; // DEFAULT - 20 seconds
-  private idleWarningTime: number = 10; // DEFAULT - how long to show the warning before logging out.
+  private idleTime = 20; // DEFAULT - 20 seconds
+  private idleWarningTime = 10; // DEFAULT - how long to show the warning before logging out.
 
   public constructor(
     private idle: Idle,

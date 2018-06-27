@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {ErrorObservable} from "rxjs/observable/ErrorObservable"; //This is needed for the Return type for 'handleError'
-import {catchError} from "rxjs/operators";
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable'; // This is needed for the Return type for 'handleError'
+import {catchError} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 
@@ -31,7 +31,7 @@ export class WebService {
               return WebService.handleError(err);
           }));
       } else {
-          return this.httpClient.get(origin + resource, {observe:'response'}).pipe(catchError(err => {
+          return this.httpClient.get(origin + resource, {observe: 'response'}).pipe(catchError(err => {
               return WebService.handleError(err);
           }));
       }
@@ -43,7 +43,7 @@ export class WebService {
               return WebService.handleError(err);
           }));
       }else {
-          return this.httpClient.post(origin + resource, data, {observe:'response'}).pipe(catchError(err => {
+          return this.httpClient.post(origin + resource, data, {observe: 'response'}).pipe(catchError(err => {
               return WebService.handleError(err);
           }));
       }
@@ -67,19 +67,19 @@ export class WebService {
               return WebService.handleError(err);
           }));
       }else {
-          return this.httpClient.patch(origin + resource, data, {observe:'response'}).pipe(catchError(err => {
+          return this.httpClient.patch(origin + resource, data, {observe: 'response'}).pipe(catchError(err => {
               return WebService.handleError(err);
           }));
       }
   }
 
   public deleteRequest(origin: string, resource: string, httpOptions?: object): Observable<any> {
-    if(httpOptions) {
+    if (httpOptions) {
         return this.httpClient.delete(origin + resource, httpOptions).pipe(catchError(err => {
             return WebService.handleError(err);
         }));
-    }else{
-        return this.httpClient.delete(origin + resource, {observe:'response'}).pipe(catchError(err => {
+    }else {
+        return this.httpClient.delete(origin + resource, {observe: 'response'}).pipe(catchError(err => {
             return WebService.handleError(err);
         }));
     }

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import { HttpHeaders } from "@angular/common/http";
+import { HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {WebService} from './web.service';
-import {CanonicalUser, Credentials, UpdateCanonicalUserRequest} from "../models/canonical-user.model";
+import {CanonicalUser, Credentials, UpdateCanonicalUserRequest} from '../models/canonical-user.model';
 
 
 @Injectable()
@@ -17,8 +17,8 @@ export class ApiService {
    * @return {Observable} an observable that returns the requested user or an error
    */
   public getLogin(credentials: Credentials, origin: string, path: string): Observable<{}> {
-    let httpHeaders = new HttpHeaders({
-        'Authorization':'Basic ' + window.btoa(credentials.username + ':' + credentials.password)
+    const httpHeaders = new HttpHeaders({
+        'Authorization': 'Basic ' + window.btoa(credentials.username + ':' + credentials.password)
     });
 
     const httpOptions = {
@@ -82,8 +82,8 @@ export class ApiService {
   }
 
   public getFileSecure(credentials: Credentials, origin: string, path: string): Observable<{}> {
-      let httpHeaders = new HttpHeaders({
-          'Authorization':'Basic ' + window.btoa(credentials.username + ':' + credentials.password)
+      const httpHeaders = new HttpHeaders({
+          'Authorization': 'Basic ' + window.btoa(credentials.username + ':' + credentials.password)
       });
 
       const httpOptions = {
@@ -104,9 +104,9 @@ export class ApiService {
   }
 
   public postFile(credentials: Credentials, origin: string, path: string, data: any): Observable<{}> {
-    let httpHeaders = new HttpHeaders({
-        'Authorization':'Basic ' + window.btoa(credentials.username + ':' + credentials.password),
-        'Content-Type':'application/octet-stream'
+    const httpHeaders = new HttpHeaders({
+        'Authorization': 'Basic ' + window.btoa(credentials.username + ':' + credentials.password),
+        'Content-Type': 'application/octet-stream'
     });
     const httpOptions = {
         headers: httpHeaders,
