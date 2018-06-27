@@ -12,7 +12,7 @@ interface ResponseMessage {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  origin = 'https://ui-toolkit.xynga.cloud';
+  origin = 'https://97t84zz7m9.execute-api.us-east-2.amazonaws.com/usintomockapi';
 
   // working username and password for the mock API
   username = 'user';
@@ -159,7 +159,7 @@ export class AppComponent {
   uploadFile() {
     const filename: string = this.myFile[0].name;
     this.apiService.postFile({username: this.username, password: this.password}, this.origin,
-      '/file/upload/' + filename, this.myFile[0]).subscribe(
+      '/canonical-users/file/' + filename, this.myFile[0]).subscribe(
       (res) => {
         this.uploadResponse = {message: 'Upload File Successful',
         color: this.defaultTextColor};
@@ -175,7 +175,7 @@ export class AppComponent {
 
   downloadFile() {
     // retrieve a generic test file called fileTest.txt that exists on the mock API resource
-    this.apiService.getFile(this.origin, '/file/download/' + 'fileTest.txt').subscribe(
+    this.apiService.getFile(this.origin, '/canonical-users/file/' + 'fileTest.txt').subscribe(
       (res) => {
         this.downloadResponse = {message: 'Download File Successful',
           color: this.defaultTextColor};
